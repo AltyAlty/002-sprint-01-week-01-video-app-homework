@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "001-sprint-01-week-01-uber-app",
+
+  "builds": [
+    { 
+      "src": "src/index.ts", 
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["src/**/*.swagger.yml"]
+      }
+    }
+  ],
+
+  "routes": [{ "src": "/(.*)", "dest": "src/index.ts" }]
+}
