@@ -53,11 +53,11 @@ export const videoCreateInputDtoValidation = (
       });
     }
 
-    for (const video of data.availableResolutions) {
-      if (!existingResolutions.includes(video)) {
+    for (const resolution of data.availableResolutions) {
+      if (!existingResolutions.includes(resolution)) {
         errors.push({
-          field: 'resolutions',
-          message: 'Invalid available resolution:' + video,
+          field: 'availableResolutions',
+          message: 'Invalid available resolution: ' + resolution,
         });
 
         break;
@@ -116,11 +116,11 @@ export const videoUpdateInputDtoValidation = (
       });
     }
 
-    for (const video of data.availableResolutions) {
-      if (!existingResolutions.includes(video)) {
+    for (const resolution of data.availableResolutions) {
+      if (!existingResolutions.includes(resolution)) {
         errors.push({
-          field: 'resolutions',
-          message: 'Invalid available resolution:' + video,
+          field: 'availableResolutions',
+          message: 'Invalid available resolution: ' + resolution,
         });
 
         break;
