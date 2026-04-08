@@ -1,0 +1,130 @@
+Урок: https://github.com/it-incubator/ed-back-sprint-1-lesson-1
+
+Инициализация проекта: pnpm init
+Установка всех зависимостей: pnpm install
+Установка Express: pnpm add express
+Установка TypeScript, Jest, TS-Jest, Supertest, ESLint, Prettier, eslint-config-prettier, eslint-plugin-prettier, nodemon:
+pnpm add -D typescript @types/express jest ts-jest @types/jest @types/node supertest @types/supertest eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier nodemon
+Инициализация файла "tsconfig.json": pnpm tsc --init
+Установка swagger-jsdoc и swagger-ui-express: pnpm add swagger-jsdoc swagger-ui-express
+Установка типов для swagger-jsdoc и swagger-ui-express: pnpm add -D @types/swagger-jsdoc @types/swagger-ui-express
+
+Скрипты:
+1. pnpm watch: компиляция файлов TypeScript из папки "src" в папку "dist" в режиме наблюдения (-w).
+2. pnpm dev: запуск приложения с помощью nodemon, следя за изменениями в скомпилированном коде в папке "dist".
+3. pnpm jest: запуск тестов с помощью Jest.
+4. pnpm format: форматирование кода с помощью Prettier.
+5. pnpm lint: запуск проверки кода с помощью ESLint и автоматического их исправления.
+6. pnpm build: компиляция файлов TypeScript из папки "src" в папку "dist", нужно для деплоя на vercel.com.
+7. pnpm start: запуск приложения, нужно для деплоя на vercel.com.
+
+Файл "package.json": настройка полей "main" и "scripts".
+Файл "tsconfig.json": ручная настройка.
+Файл "jest.config.json" создан вручную.
+
+Файл "eslint.config.mjs" создан вручную. Правила в этом файле:
+1. Игнорирует папки "node_modules" и "dist".
+2. Использует TS парсер.
+3. Использует TS плагин и Prettier плагин.
+4. Проверяет только файлы .ts
+5. Показывает ошибку если форматирование не по правилам Prettier.
+6. Показывает предупреждение для неиспользуемых переменных.
+7. Показывает ошибку если используется == или !=.
+8. Отключает правила ESLint, которые конфликтуют с Prettier.
+
+Файл ".prettierrc" создан вручную. Правила в этом файле:
+1. В конце ставятся точки с запятой.
+2. Используются одинарные кавычки вместо двойных.
+3. Используются запятые при перечислении, в том числе в конце.
+4. Перенос строк длиннее 80 символов.
+5. Отступ - 2 пробела.
+
+Файл ".prettierignore" создан вручную. Правила в этом файле: Prettier игнорирует папки "node_modules" и "dist", а также
+файл "pnpm-lock.json".
+
+Настройка Prettier в WebStorm: Settings -> Languages & Frameworks -> JavaScript -> Prettier -> Manual Prettier
+Configuration -> Run on 'Reformat Code' action - ON, Apply Prettier to files outside the prettier dependency scope -
+OFF, Run for files - add "json", Run on save - ON.
+
+Настройка ESLint в WebStorm: Settings -> Languages & Frameworks -> JavaScript -> Code Quality Tools -> ESLint ->
+Automatic ESLint configuration - ON, Run eslint --fix on save - ON.
+
+Jest - тестовый фреймворк для JavaScript, который поддерживает тестирование кода. Используется для написания и
+выполнения юнит-тестов, тестов интеграции и моков.
+
+TS-Jest - преобразователь для Jest, позволяющий тестировать TypeScript-код. Позволяет Jest работать с TypeScript,
+компилируя его во время тестирования.
+
+Supertest - библиотека для e2e тестирования HTTP-запросов. Используется для тестирования API, отправляя запросы к
+серверу и проверяя ответы.
+
+ESLint - линтер для JavaScript и TypeScript. Используется для анализа кода на наличие ошибок и проблем с качеством,
+таких как несоответствие стилю кодирования или потенциальные ошибки.
+
+Prettier - форматировщик кода. Используется для автоматического форматирования кода по установленным правилам, улучшая
+читаемость и единообразие.
+
+eslint-config-prettier - конфигурация для ESLint, отключающая правила, которые могут конфликтовать с Prettier. Помогает
+интегрировать Prettier с ESLint без конфликтов, отключая проверки, которые дублируют функциональность Prettier.
+
+eslint-plugin-prettier - плагин для ESLint, который интегрирует Prettier в процесс линтинга. Обеспечивает использование
+Prettier как ESLint-правила, что позволяет линтить код и форматировать его в одном процессе.
+
+swagger-jsdoc - инструмент для генерации документации API в формате Swagger на основе JSDoc комментариев в коде. Он
+помогает автоматически генерировать документацию API в стандартном формате (Swagger), что упрощает поддержку и
+обновление документации по мере изменения кода.
+
+swagger-ui-express - среда для Express, которая позволяет отображать документацию Swagger в красивом веб-интерфейсе. Она
+предоставляет веб-интерфейс, где разработчики могут просматривать и взаимодействовать с документацией API, что позволяет
+тестировать API прямо из браузера.
+
+Настройка Swagger:
+1. Файл "/src/core/swagger/setup-swagger.ts" - создание функции для инициализации документации Swagger.
+2. Файл "/src/setup-app.ts" - вызов функции для инициализации документации Swagger.
+3. Во всех роутерах добавить путь "/app/".
+4. Во всех тестах добавить путь "/app/".
+5. Создать вручную файлы .yml, описывающие документацию Swagger:
+5.1 Файл "/src/core/swagger/openapi.swagger.yml".
+5.2 Файл "/src/drivers/docs/drivers.swagger.yml".
+5.3 Файл "/src/testing/docs/testing.swagger.yml".
+
+Документация Swagger находиться по пути "/api".
+
+"process" - это глобальный объект в Node.js, который содержит информацию о текущем процессе выполнения. "process.env" -
+это объект, содержащий все переменные окружения, доступные вашему приложению.
+
+Метод "sendStatus()" используется для отправки только статуса без тела ответа.
+
+Data Transfer Object - это объект, определяющий форму и структуру данных, которыми обмениваются разные части приложения
+или разные сервисы.
+
+Структура приложения:
+Папка "core" - общие типы для всего приложения.
+Папка "db" - моковые данные.
+Папка "drivers" - код, связанный с водителями. Здесь хранится DTO для валидации данных и типы, описывающие водителей.
+Папка "testing" - код, связанные с тестированием приложения.
+
+Деплой приложения на vercel.com:
+1. Создать файл "vercel.json".
+2. В файл "package.json" добавить скрипты:
+2.1 "build": "tsc".
+2.2 "start": "node dist/index.js".
+3. Залогиниться на vercel.com.
+4. Выбрать "Add New..." - "Project".
+5. Выбрать "Continue with GitHub".
+6. Импортировать нужный репозиторий.
+7. Указать "Application Preset" как "Express".
+8. Указать "Build Command" как "pnpm build".
+9. Указать "Output Directory" как "dist".
+10. Указать "Install Command" как "pnpm install".
+
+Чтобы Swagger корректно отображался и работал на vercel.com:
+1. Использовать файл "setup-swagger.ts" вместо файла "setup-swagger-original.ts".
+2. В файле "vercel.json" добавить, чтобы не игнорировались файлы .yml:
+"builds": [
+    {
+      "config": {
+        "includeFiles": ["src/**/*.swagger.yml"]
+      }
+    }
+  ]
