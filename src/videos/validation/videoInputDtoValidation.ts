@@ -101,13 +101,15 @@ export const videoUpdateInputDtoValidation = (
       field: 'availableResolutions',
       message: 'availableResolutions must be array',
     });
+  } else if (data.availableResolutions.length < 1) {
+    errors.push({
+      field: 'availableResolutions',
+      message: 'Invalid availableResolutions',
+    });
   } else if (data.availableResolutions.length) {
     const existingResolutions = Object.values(availableResolution);
 
-    if (
-      data.availableResolutions.length > existingResolutions.length ||
-      data.availableResolutions.length < 1
-    ) {
+    if (data.availableResolutions.length > existingResolutions.length) {
       errors.push({
         field: 'availableResolutions',
         message: 'Invalid availableResolutions',

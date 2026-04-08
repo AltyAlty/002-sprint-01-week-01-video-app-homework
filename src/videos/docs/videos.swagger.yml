@@ -224,7 +224,7 @@ components:
     ValidationErrorResponse:
       type: object
       properties:
-        errorMessages:
+        errorsMessages:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'

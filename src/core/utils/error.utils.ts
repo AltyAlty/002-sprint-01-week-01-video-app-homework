@@ -4,6 +4,6 @@ import { ValidationError } from '../../videos/types/validationError';
 валидации.*/
 export const createErrorMessages = (
   errors: ValidationError[],
-): { errorMessages: ValidationError[] } => {
-  return { errorMessages: errors };
+): { errorsMessages: ValidationError[] } => {
+  return { errorsMessages: errors };
 };
