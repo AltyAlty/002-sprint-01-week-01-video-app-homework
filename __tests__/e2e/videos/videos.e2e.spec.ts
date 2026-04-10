@@ -1,6 +1,6 @@
 import express from 'express';
 import request from 'supertest';
-import { setupApp } from '../../../src/setup-app';
+import { rootPath, setupApp } from '../../../src/setup-app';
 import { HttpStatus } from '../../../src/core/types/http-statuses';
 import {
   VideoCreateInputDto,
@@ -25,37 +25,37 @@ describe('Video API', () => {
   /*Перед запуском тестов, очищаем БД с данными по видео.*/
   beforeAll(async () => {
     await request(app)
-      .delete('/hometask_01/api/testing/all-data')
+      .delete(`${rootPath}/testing/all-data`)
       .expect(HttpStatus.NoContent);
   });
 
   /*Описываем тест, проверяющий добавление нового видео в БД.*/
-  it('should create video; POST /hometask_01/api/videos', async () => {
+  it('should create a video; POST /hometask_01/api/videos', async () => {
     const newVideo: VideoCreateInputDto = {
       ...testCreateVideoData,
       title: 'Video Title 002',
     };
 
     await request(app)
-      .post('/hometask_01/api/videos')
+      .post(`${rootPath}/videos`)
       .send(newVideo)
       .expect(HttpStatus.Created);
   });
 
   /*Описываем тест, проверяющий получение данных по всем видео из БД.*/
-  it('should return videos list; GET /hometask_01/api/videos', async () => {
+  it('should return a list of videos; GET /hometask_01/api/videos', async () => {
     await request(app)
-      .post('/hometask_01/api/videos')
+      .post(`${rootPath}/videos`)
       .send({ ...testCreateVideoData, title: 'Video Title 003' })
       .expect(HttpStatus.Created);
 
     await request(app)
-      .post('/hometask_01/api/videos')
+      .post(`${rootPath}/videos`)
       .send({ ...testCreateVideoData, title: 'Video Title 004' })
       .expect(HttpStatus.Created);
 
     const videosListResponse = await request(app)
-      .get('/hometask_01/api/videos')
+      .get(`${rootPath}/videos`)
       .expect(HttpStatus.Ok);
 
     expect(videosListResponse.body).toBeInstanceOf(Array);
@@ -63,14 +63,14 @@ describe('Video API', () => {
   });
 
   /*Описываем тест, проверяющий получение данных по видео по id из БД.*/
-  it('should return video by id; GET /hometask_01/api/videos/:id', async () => {
+  it('should return a video by id; GET /hometask_01/api/videos/:id', async () => {
     const createResponse = await request(app)
-      .post('/hometask_01/api/videos')
+      .post(`${rootPath}/videos`)
       .send({ ...testCreateVideoData, title: 'Video Title 005' })
       .expect(HttpStatus.Created);
 
     const getResponse = await request(app)
-      .get(`/hometask_01/api/videos/${createResponse.body.id}`)
+      .get(`${rootPath}/videos/${createResponse.body.id}`)
       .expect(HttpStatus.Ok);
 
     expect(getResponse.body).toEqual({
@@ -81,9 +81,9 @@ describe('Video API', () => {
   });
 
   /*Описываем тест, проверяющий изменение данных по видео по id в БД.*/
-  it('should update video; PUT /hometask_01/api/videos/:id', async () => {
+  it('should update a video; PUT /hometask_01/api/videos/:id', async () => {
     const createResponse = await request(app)
-      .post('/hometask_01/api/videos')
+      .post(`${rootPath}/videos`)
       .send({ ...testCreateVideoData, title: 'Video Title 006' })
       .expect(HttpStatus.Created);
 
@@ -97,12 +97,12 @@ describe('Video API', () => {
     };
 
     await request(app)
-      .put(`/hometask_01/api/videos/${createResponse.body.id}`)
+      .put(`${rootPath}/videos/${createResponse.body.id}`)
       .send(testUpdateVideoData)
       .expect(HttpStatus.NoContent);
 
     const videoResponse = await request(app).get(
-      `/hometask_01/api/videos/${createResponse.body.id}`,
+      `${rootPath}/videos/${createResponse.body.id}`,
     );
 
     expect(videoResponse.body).toEqual({
@@ -113,20 +113,20 @@ describe('Video API', () => {
   });
 
   /*Описываем тест, проверяющий удаление видео по id в БД.*/
-  it('DELETE /hometask_01/api/videos/:id and check after NOT FOUND', async () => {
+  it('should delete a video by id; DELETE /hometask_01/api/videos/:id', async () => {
     const {
       body: { id: createdVideoId },
     } = await request(app)
-      .post('/hometask_01/api/videos')
+      .post(`${rootPath}/videos`)
       .send({ ...testCreateVideoData, title: 'Video Title 008' })
       .expect(HttpStatus.Created);
 
     await request(app)
-      .delete(`/hometask_01/api/videos/${createdVideoId}`)
+      .delete(`${rootPath}/videos/${createdVideoId}`)
       .expect(HttpStatus.NoContent);
 
     const videoResponse = await request(app).get(
-      `/hometask_01/api/videos/${createdVideoId}`,
+      `${rootPath}/videos/${createdVideoId}`,
     );
 
     expect(videoResponse.status).toBe(HttpStatus.NotFound);

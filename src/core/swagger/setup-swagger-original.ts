@@ -1,6 +1,7 @@
 import { Express } from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import { rootPath } from '../../setup-app';
 
 /*Создаем объект, описывающий опции документации Swagger.*/
 const swaggerOptions = {
@@ -23,5 +24,5 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 /*Создаем функцию "setupSwagger()" для инициализации документации Swagger.*/
 export const setupSwagger = (app: Express) => {
-  app.use('/hometask_01/api', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use(rootPath, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };

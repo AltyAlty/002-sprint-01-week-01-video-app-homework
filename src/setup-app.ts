@@ -4,6 +4,8 @@ import { testingRouter } from './testing/routers/testing.router';
 import { HttpStatus } from './core/types/http-statuses';
 import { setupSwagger } from './core/swagger/setup-swagger';
 
+export const rootPath = '/hometask_01/api';
+
 /*Создаем функцию "setupApp()" для конфигурирования экземпляров приложения Express.*/
 export const setupApp = (app: Express) => {
   /*Подключаем middleware для парсинга JSON в теле запроса.*/
@@ -15,8 +17,8 @@ export const setupApp = (app: Express) => {
   });
 
   /*Подключаем роутеры.*/
-  app.use('/hometask_01/api/videos', videosRouter);
-  app.use('/hometask_01/api/testing', testingRouter);
+  app.use(`${rootPath}/videos`, videosRouter);
+  app.use(`${rootPath}/testing`, testingRouter);
 
   /*Инициализируем документацию Swagger.*/
   setupSwagger(app);
