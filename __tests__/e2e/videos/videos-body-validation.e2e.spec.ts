@@ -132,7 +132,7 @@ describe('Video API body validation check', () => {
   });
 
   /*Описываем тест, проверяющий отказ в изменении данных видео с непрошедшими валидацию данными о разрешениях видео.*/
-  it('should not update a video when incorrect features passed; PUT /hometask_01/api/videos/:id', async () => {
+  it('should not update a video when incorrect resolutions passed; PUT /hometask_01/api/videos/:id', async () => {
     const {
       body: { id: createdVideoId },
     } = await request(app)
