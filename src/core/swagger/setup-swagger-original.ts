@@ -9,9 +9,9 @@ const swaggerOptions = {
     openapi: '3.0.0',
 
     info: {
-      title: 'Video API',
+      title: 'Videos API',
       version: '1.0.0',
-      description: 'video API',
+      description: 'Videos API',
     },
   },
 
@@ -21,8 +21,5 @@ const swaggerOptions = {
 
 /*Генерируем документацию API в формате Swagger.*/
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
-
 /*Создаем функцию "setupSwagger()" для инициализации документации Swagger.*/
-export const setupSwagger = (app: Express) => {
-  app.use(rootPath, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-};
+export const setupSwagger = (app: Express) => app.use(rootPath, swaggerUi.serve, swaggerUi.setup(swaggerSpec));

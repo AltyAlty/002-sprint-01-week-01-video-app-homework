@@ -1,24 +1,14 @@
 import { availableResolution } from '../types/video';
-import {
-  VideoCreateInputDto,
-  VideoUpdateInputDto,
-} from '../dto/video-input.dto';
+import { VideoCreateInputDto, VideoUpdateInputDto } from '../dto/video-input.dto';
 import { ValidationError } from '../types/validationError';
 import { db } from '../../db/in-memory.db';
 
 /*Функция для валидации DTO для входных данных для создания нового видео.*/
-export const videoCreateInputDtoValidation = (
-  data: VideoCreateInputDto,
-): ValidationError[] => {
+export const videoCreateInputDtoValidation = (data: VideoCreateInputDto): ValidationError[] => {
   const errors: ValidationError[] = [];
 
   /*Валидация поля "title".*/
-  if (
-    !data.title ||
-    typeof data.title !== 'string' ||
-    data.title.trim().length < 1 ||
-    data.title.trim().length > 40
-  ) {
+  if (!data.title || typeof data.title !== 'string' || data.title.trim().length < 1 || data.title.trim().length > 40) {
     errors.push({ field: 'title', message: 'Invalid title' });
   }
 
@@ -69,19 +59,11 @@ export const videoCreateInputDtoValidation = (
 };
 
 /*Функция для валидации DTO для входных данных для изменения видео.*/
-export const videoUpdateInputDtoValidation = (
-  data: VideoUpdateInputDto,
-  id: number,
-): ValidationError[] => {
+export const videoUpdateInputDtoValidation = (data: VideoUpdateInputDto, id: number): ValidationError[] => {
   const errors: ValidationError[] = [];
 
   /*Валидация поля "title".*/
-  if (
-    !data.title ||
-    typeof data.title !== 'string' ||
-    data.title.trim().length < 1 ||
-    data.title.trim().length > 40
-  ) {
+  if (!data.title || typeof data.title !== 'string' || data.title.trim().length < 1 || data.title.trim().length > 40) {
     errors.push({ field: 'title', message: 'Invalid title' });
   }
 
@@ -138,10 +120,8 @@ export const videoUpdateInputDtoValidation = (
 
   /*Валидация поля "minAgeRestriction".*/
   if (
-    (data.minAgeRestriction !== null &&
-      typeof data.minAgeRestriction !== 'number') ||
-    (typeof data.minAgeRestriction === 'number' &&
-      (data.minAgeRestriction < 1 || data.minAgeRestriction > 18))
+    (data.minAgeRestriction !== null && typeof data.minAgeRestriction !== 'number') ||
+    (typeof data.minAgeRestriction === 'number' && (data.minAgeRestriction < 1 || data.minAgeRestriction > 18))
   ) {
     errors.push({
       field: 'minAgeRestriction',

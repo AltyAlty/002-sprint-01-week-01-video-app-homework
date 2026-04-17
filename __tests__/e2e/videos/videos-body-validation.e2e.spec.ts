@@ -2,14 +2,11 @@ import express from 'express';
 import request from 'supertest';
 import { rootPath, setupApp } from '../../../src/setup-app';
 import { HttpStatus } from '../../../src/core/types/http-statuses';
-import {
-  VideoCreateInputDto,
-  VideoUpdateInputDto,
-} from '../../../src/videos/dto/video-input.dto';
+import { VideoCreateInputDto, VideoUpdateInputDto } from '../../../src/videos/dto/video-input.dto';
 import { availableResolution } from '../../../src/videos/types/video';
 
 /*Описываем тестовый набор.*/
-describe('Video API body validation check', () => {
+describe('Videos API body validation check', () => {
   const app = express();
   setupApp(app);
 
@@ -28,11 +25,7 @@ describe('Video API body validation check', () => {
     publicationDate: new Date(Date.now() + 864e5).toISOString(),
   };
 
-  beforeAll(async () => {
-    await request(app)
-      .delete(`${rootPath}/testing/all-data`)
-      .expect(HttpStatus.NoContent);
-  });
+  beforeAll(async () => await request(app).delete(`${rootPath}/testing/all-data`).expect(HttpStatus.NoContent));
 
   /*Описываем тест, проверяющий отказ в добавлении видео с непрошедшими валидацию данными.*/
   it('should not create a video when an incorrect body passed; POST /hometask_01/api/videos', async () => {
@@ -69,13 +62,12 @@ describe('Video API body validation check', () => {
       .expect(HttpStatus.BadRequest);
 
     expect(invalidDataSet3.body.errorsMessages).toHaveLength(1);
-
     const videoListResponse = await request(app).get(`${rootPath}/videos`);
     expect(videoListResponse.body).toHaveLength(0);
   });
 
   /*Описываем тест, проверяющий отказ в изменении данных видео с непрошедшими валидацию данными.*/
-  it('should not update a video when incorrect data passed; PUT /hometask_01/api/videos/:id', async () => {
+  it('should not update a video when incorrect body passed; PUT /hometask_01/api/videos/:id', async () => {
     const {
       body: { id: createdVideoId },
     } = await request(app)
@@ -119,10 +111,7 @@ describe('Video API body validation check', () => {
       .expect(HttpStatus.BadRequest);
 
     expect(invalidDataSet3.body.errorsMessages).toHaveLength(2);
-
-    const videoResponse = await request(app).get(
-      `${rootPath}/videos/${createdVideoId}`,
-    );
+    const videoResponse = await request(app).get(`${rootPath}/videos/${createdVideoId}`);
 
     expect(videoResponse.body).toMatchObject({
       ...correctTestCreateVideoData,
@@ -144,17 +133,11 @@ describe('Video API body validation check', () => {
       .put(`${rootPath}/videos/${createdVideoId}`)
       .send({
         ...correctTestUpdateVideoData,
-        availableResolutions: [
-          availableResolution.P360,
-          'invalid-resolution',
-          availableResolution.P2160,
-        ],
+        availableResolutions: [availableResolution.P360, 'invalid-resolution', availableResolution.P2160],
       })
       .expect(HttpStatus.BadRequest);
 
-    const videoResponse = await request(app).get(
-      `${rootPath}/videos/${createdVideoId}`,
-    );
+    const videoResponse = await request(app).get(`${rootPath}/videos/${createdVideoId}`);
 
     expect(videoResponse.body).toMatchObject({
       ...correctTestCreateVideoData,

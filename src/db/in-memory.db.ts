@@ -1,6 +1,6 @@
 import { availableResolution, Video } from '../videos/types/video';
 
-/*Моковая БД с данными по видео.*/
+/*Моковая БД.*/
 export const db = {
   videos: <Video[]>[
     {

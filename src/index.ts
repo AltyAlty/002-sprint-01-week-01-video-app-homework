@@ -7,8 +7,5 @@ const app = express();
 setupApp(app);
 /*Указываем порт для экземпляра приложения Express.*/
 const PORT = process.env.PORT || 5001;
-
 /*Запускаем экземпляр приложения Express.*/
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));

@@ -10,16 +10,11 @@ export const rootPath = '/hometask_01/api';
 export const setupApp = (app: Express) => {
   /*Подключаем middleware для парсинга JSON в теле запроса.*/
   app.use(express.json());
-
   /*GET-запрос для получения главной страницы.*/
-  app.get('/', (req: Request, res: Response) => {
-    res.status(HttpStatus.Ok).send('Hello World!');
-  });
-
+  app.get('/', (req: Request, res: Response) => res.status(HttpStatus.Ok).send('Hello World!'));
   /*Подключаем роутеры.*/
   app.use(`${rootPath}/videos`, videosRouter);
   app.use(`${rootPath}/testing`, testingRouter);
-
   /*Инициализируем документацию Swagger.*/
   setupSwagger(app);
   return app;

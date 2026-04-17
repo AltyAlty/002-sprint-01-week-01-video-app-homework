@@ -9,9 +9,9 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Video API',
+      title: 'Videos API',
       version: '1.0.0',
-      description: 'video API',
+      description: 'Videos API',
     },
   },
 
@@ -26,9 +26,7 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 /*Создаем функцию "setupSwagger()" для инициализации документации Swagger. В данном случае UI собираем удаленно, чтобы
 Swagger работал на vercel.com.*/
 export const setupSwagger = (app: Express) => {
-  app.get('/swagger.json', (_req, res) => {
-    res.json(swaggerSpec);
-  });
+  app.get('/swagger.json', (_req, res) => res.json(swaggerSpec));
 
   app.use(
     rootPath,
