@@ -73,7 +73,7 @@ Automatic ESLint configuration - ON, Run eslint --fix on save - ON.
 9. Указать "Output Directory" как "dist".
 10. Указать "Install Command" как "pnpm install".
 
-Чтобы Swagger корректно отображался и работал на vercel.com:
+Настройка Swagger, чтобы он корректно отображался и работал на vercel.com:
 1. Использовать файл "setup-swagger.ts" вместо файла "setup-swagger-original.ts".
 2. В файле "vercel.json" добавить, чтобы не игнорировались файлы .yml:
 "builds": [
@@ -141,4 +141,5 @@ Data Transfer Object - это объект, определяющий форму 
 4.4 "/src/videos/types/" - типы для видео.
 4.5 "/src/videos/validation/" - валидации DTO для входных данных по видео.
 5. "/__tests__/" - тестирование приложения.
-5.1 "/__tests__/e2e/videos" - e2e-тесты по видео.
+5.1 "/__tests__/e2e/" - e2e-тесты.
+5.1.1 "/__tests__/e2e/videos/" - e2e-тесты по видео.
